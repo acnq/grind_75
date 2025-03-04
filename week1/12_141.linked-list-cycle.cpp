@@ -40,34 +40,52 @@ using namespace std;
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-// struct ListNode
-// {
-//     int val;
-//     ListNode* next;
-//     ListNode(int x) : val(x), next(NULL) {}
-// };
+struct ListNode
+{
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
 
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        unordered_set<ListNode*> mem;       
-        ListNode* p = head;
+        // unordered_set<ListNode*> mem;       
+        // ListNode* p = head;
 
-        if (head == nullptr)
+        // if (head == nullptr)
+        // {
+        //     return false;
+        // }
+        
+        // while (p->next != nullptr)
+        // {
+        //     if (mem.count(p) != 0)
+        //     {
+        //         return true;
+        //     }
+        //     mem.insert(p);
+        //     p = p->next;
+        // }
+        // return false;
+        if (head == nullptr || head->next == nullptr)
         {
             return false;
         }
-        
-        while (p->next != nullptr)
+        ListNode* tutle = head;
+        ListNode* rabbit = head->next;
+
+        while (tutle != rabbit)
         {
-            if (mem.count(p) != 0)
+            if (tutle->next != nullptr && rabbit->next != nullptr && rabbit->next->next == nullptr)
             {
-                return true;
+                tutle = tutle->next;
+                rabbit = rabbit->next->next;
+            } else {
+                return false;
             }
-            mem.insert(p);
-            p = p->next;
         }
-        return false;
+        return true
     }
 };
 // @lc code=end
