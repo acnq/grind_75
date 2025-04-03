@@ -4,6 +4,7 @@
     "*.ndjson": "jsonl",
     "*.dbclient-js": "javascript",
     "*.m": "matlab",
-    "xstring": "cpp"
+    "xstring": "cpp",
+    "utility": "cpp"
   }
 }
