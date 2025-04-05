@@ -5,6 +5,7 @@
     "*.dbclient-js": "javascript",
     "*.m": "matlab",
     "xstring": "cpp",
-    "utility": "cpp"
+    "utility": "cpp",
+    "vector": "cpp"
   }
 }
