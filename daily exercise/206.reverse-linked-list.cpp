@@ -9,7 +9,7 @@
 // @lcpr-template-start
 using namespace std;
 #include <algorithm>
-#include <array>
+#include <array> 
 #include <bitset>
 #include <climits>
 #include <deque>
