@@ -6,6 +6,7 @@
     "*.m": "matlab",
     "xstring": "cpp",
     "utility": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "unordered_set": "cpp"
   }
 }
