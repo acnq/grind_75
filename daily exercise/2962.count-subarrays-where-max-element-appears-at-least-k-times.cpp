@@ -43,7 +43,7 @@ public:
         for(int i = 0; i < n; i++) {
             if(nums[i] == mx) {
                 pos.push_back(i);
-            }
+            } // 网络出了点问题？
         }
 
         int left = 1, right = k;
