@@ -30,7 +30,6 @@ using namespace std;
 #include <unordered_set>
 #include <utility>
 #include <vector>
-using namespace std;
 // @lcpr-template-end
 // @lc code=start
 
@@ -76,6 +75,7 @@ public:
         vector<vector<long long>> res(n1, vector<long long>(n3));
         for (int i = 0; i < n1; i++)
         {
+            
             for (int k = 0; k < n3; k++)
             {
                 for (int j = 0; j < n2; j++)
