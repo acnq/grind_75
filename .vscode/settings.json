@@ -11,6 +11,11 @@
     "unordered_map": "cpp",
     "random": "cpp",
     "type_traits": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "xhash": "cpp",
+    "bitset": "cpp",
+    "iterator": "cpp",
+    "xtree": "cpp",
+    "xutility": "cpp"
   }
 }
