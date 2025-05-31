@@ -45,7 +45,20 @@ class Solution {
     //
     // 复杂度：由于从优先队列进步为了操作O(n)的队列，总体优化为O(n);
 
-    // III. 
+    // III. 分块预处理
+    // nums 从左到右k个一组进行分组，最后一组的元素可以不到k个， 求出nums[i]:nums[i+k-1]的最大值，有两种情况
+    // 1. i是k的倍数，那么，num[i]:nums[i+k-1]恰为一个分组=>预处理每个分组中的最大值即可
+    // 2. i不是k的倍数，则nums[i]:nums[i+k-1]会分跨两组，假设j是k的倍数，且i < j <= i + k - 1
+    //    则nums[i]:nums[j-1]为第一个分组的后缀，num[j]:nums[i+k-1]就是第二分组的前缀 => 预处理每个分组中的前缀最大值和后缀最大值
+    // prefixMax[i]: 下标i对应的分组中，以i结尾的前缀最大值；
+    // suffixMax[i]:  ... ...       ,以i开始的后缀最大值
+    // prefixMax[i] = { nums[i],                        i是k的倍数
+    //                { max{prefixMax[i - 1], nums[i]}, i不是...
+    // suffixMax[i] = { nums[i],                        i+1是k的倍数
+    //                { max(suffixMax[i + 1], nums[i]), i+1不是...
+    // suffixMax[n - 1] = nums[n - 1], prefixMax[0] = nums[0]
+    // 注意无论哪种情况， 窗口中最大值都是max{suffixMax[i], prefixMax[i + k - 1]}
+    // 这就是稀疏表
 
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
@@ -69,31 +82,62 @@ public:
         // return res;
 
         // II.
+        // int n = nums.size();
+        // deque<int> q;
+        // for (int i = 0; i < k; i++)
+        // {
+        //     while (!q.empty() && nums[i] >= nums[q.back()])
+        //     {
+        //         q.pop_back();
+        //     }
+        //     q.push_back(i);
+        // }
+        // vector<int> ans = {nums[q.front()]};
+        // for (int i = k; i < n; i++)
+        // {
+        //     while (!q.empty() && nums[i] >= nums[q.back()])
+        //     {
+        //         q.pop_back();
+        //     }
+        //     q.push_back(i);
+        //     while (q.front() <= i - k)
+        //     {
+        //         q.pop_front();
+        //     }
+        //     ans.push_back(nums[q.front()]);
+        // }
+        // return ans;
+
         int n = nums.size();
-        deque<int> q;
-        for (int i = 0; i < k; i++)
+        vector<int> prefixMax(n), suffixMax(n);
+        for (int i = 0; i < n; i++)
         {
-            while (!q.empty() && nums[i] >= nums[q.back()])
+            if (i % k == 0)
             {
-                q.pop_back();
+                prefixMax[i] = nums[i];
+            } else {
+                prefixMax[i] = max(prefixMax[i - 1], nums[i]);
             }
-            q.push_back(i);
         }
-        vector<int> ans = {nums[q.front()]};
-        for (int i = k; i < n; i++)
+
+        for (int i = n - 1; i >= 0; i--)
         {
-            while (!q.empty() && nums[i] >= nums[q.back()])
+            if (i == n - 1 || (i + 1) % k == 0)
             {
-                q.pop_back();
+                suffixMax[i] = nums[i];
+            } else {
+                suffixMax[i] = max(suffixMax[i + 1], nums[i]);
             }
-            q.push_back(i);
-            while (q.front() <= i - k)
-            {
-                q.pop_front();
-            }
-            ans.push_back(nums[q.front()]);
         }
+        
+        vector<int> ans;
+        for (int i = 0; i <= n - k; i++)
+        {
+            ans.push_back(max(suffixMax[i], prefixMax[i + k - 1]));
+        }
+        
         return ans;
+        
         
     }
 };
