@@ -36,7 +36,7 @@ using namespace std;
 // Longest Increasing Subsequence: abbr. LIS 
 class Solution {
     // s[i]: 以i结尾的LIS长度
-    // s[i] = max_{s[i] >= s[j]}{s[j]} + 1;
+    // s[i] = max_{nums[i] > nums[j]}{s[j]} + 1;
     // I. 动态规划
     // 如上，TC: O(n^2); SC: O(n)
     // II. 贪心 + 二分查找
