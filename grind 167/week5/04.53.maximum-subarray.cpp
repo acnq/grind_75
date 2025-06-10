@@ -39,7 +39,7 @@ public:
         int mSum = max(max(left.mSum, right.mSum), left.rSum + right.lSum);
         return Status{lSum, rSum, mSum, iSum};
     };
-       
+    
     Status get(vector<int>& arr, int left, int right) {
         if (left == right)
         {
