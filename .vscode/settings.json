@@ -17,6 +17,8 @@
     "iterator": "cpp",
     "xtree": "cpp",
     "xutility": "cpp",
-    "cmath": "cpp"
+    "cmath": "cpp",
+    "string": "cpp",
+    "numeric": "cpp"
   }
 }
