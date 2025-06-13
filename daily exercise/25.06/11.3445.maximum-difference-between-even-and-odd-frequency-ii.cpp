@@ -52,7 +52,7 @@ public:
         auto getStatus = [](int cnt_a, int cnt_b) -> int {
             return ((cnt_a & 1) << 1) | (cnt_b & 1);
         };
-
+        
         int n = s.size();
         int ans = INT_MIN;
         for(char a = '0'; a <= '4'; a++) {
