@@ -19,6 +19,7 @@
     "xutility": "cpp",
     "cmath": "cpp",
     "string": "cpp",
-    "numeric": "cpp"
+    "numeric": "cpp",
+    "climits": "cpp"
   }
 }
