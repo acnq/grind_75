@@ -20,6 +20,7 @@
     "cmath": "cpp",
     "string": "cpp",
     "numeric": "cpp",
-    "climits": "cpp"
+    "climits": "cpp",
+    "queue": "cpp"
   }
 }
