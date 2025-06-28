@@ -28,7 +28,6 @@ using namespace std;
 class Solution {
 public:
     bool isPowerOfFour(int n) {
-        
     }
 };
 // @lc code=end
