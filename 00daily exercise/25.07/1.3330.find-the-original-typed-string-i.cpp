@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=95 lang=cpp
+ * @lc app=leetcode.cn id=3330 lang=cpp
  * @lcpr version=30204
  *
- * [95] 不同的二叉搜索树 II
+ * [3330] 找到初始输入字符串 I
  */
 
 
@@ -25,21 +25,20 @@ using namespace std;
 #include <vector>
 // @lcpr-template-end
 // @lc code=start
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    vector<TreeNode*> generateTrees(int n) {
-        
+    int possibleStringCount(string word) {
+        int posb = 1;
+        vector<char> stats(26);
+        for (int i = 1; i < word.size(); i++)
+        {
+            if (word[i] == word[i - 1])
+            {
+                posb++;
+            }
+            
+        }
+        return posb;
     }
 };
 // @lc code=end
@@ -48,11 +47,15 @@ public:
 
 /*
 // @lcpr case=start
-// 3\n
+// "abbcccc"\n
 // @lcpr case=end
 
 // @lcpr case=start
-// 1\n
+// "abcd"\n
+// @lcpr case=end
+
+// @lcpr case=start
+// "aaaa"\n
 // @lcpr case=end
 
  */
