@@ -41,6 +41,7 @@ class Solution {
     // 1. 直接交换，成本x1;
     // 2. 简介交换，x1先与两个果篮中成本最小值m交换，x2再与m交换，成本降为2*m
     // 遍历merge前一半元素，累积min(x, 2*m)到最终交换成本。
+    // tc: O(nlogn), sc: O(n)
 public: 
     long long minCost(vector<int>& basket1, vector<int>& basket2) {
         int m = INT_MAX;
