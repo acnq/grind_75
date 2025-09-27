@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=3484 lang=cpp
+ * @lc app=leetcode.cn id=3508 lang=cpp
  * @lcpr version=30204
  *
- * [3484] 设计电子表格
+ * [3508] 设计路由器
  */
 
 
@@ -27,7 +27,7 @@ using namespace std;
 #include <string>
 // @lcpr-template-end
 // @lc code=start
-class Spreadsheet {
+class Router {
     // I. 直接模拟：
     // 用二维数组grid来保存每个单元格的值，行数为row, 列数为26
     // 初始化：Spreadsheet(int rows), 列数设定为26，元素全部设定为0
@@ -67,63 +67,39 @@ private:
     unordered_map<string, int> cellValues;
 
 public:
-    Spreadsheet(int rows) {
-        // I.
-        // this->grid = vector<vector<int>>(rows + 1, vector<int>(26));
-        
-        // II.
+    Router(int memoryLimit) {
 
     }
     
-    void setCell(string cell, int value) {
-        // I.
-        // auto [x, y] = getPos(cell);
-        // grid[x][y] = value;
-        
-        // II.
-        cellValues[cell] = value;
+    bool addPacket(int source, int destination, int timestamp) {
     }
     
-    void resetCell(string cell) {
-        // I.
-        // auto [x, y] = getPos(cell);
-        // grid[x][y] = 0;
-        
-        // II.
-        cellValues.erase(cell);
+    vector<int> forwardPacket() {
     }
     
-    int getValue(string formula) {
-        // I.
-        // int i = formula.find('+');
-        // string cell1 = formula.substr(1, i - 1);
-        // string cell2 = formula.substr(i + 1);
-        // return getCellVal(cell1) + getCellVal(cell2);
-
-        // II.
-        int i = formula.find('+');
-        string cell1 = formula.substr(1, i - 1);
-        string cell2 = formula.substr(i + 1);
-        return (isalpha(cell1[0]) ? cellValues[cell1]: stoi(cell1)) +
-                (isalpha(cell2[0]) ? cellValues[cell2]: stoi(cell2));
+    int getCount(int destination, int startTime, int endTime) {
     }
     
 };
 
 /**
- * Your Spreadsheet object will be instantiated and called as such:
- * Spreadsheet* obj = new Spreadsheet(rows);
- * obj->setCell(cell,value);
- * obj->resetCell(cell);
- * int param_3 = obj->getValue(formula);
- */
+ * Your Router object will be instantiated and called as such:
+ * Router* obj = new Router(memoryLimit);
+ * bool param_1 = obj->addPacket(source,destination,timestamp);
+ * vector<int> param_2 = obj->forwardPacket();
+ * int param_3 = obj->getCount(destination,startTime,endTim
+ * /
 // @lc code=end
 
 
 
 /*
 // @lcpr case=start
-// ["Spreadsheet","getValue","setCell","getValue","setCell","getValue","resetCell","getValue"]\n
+// ["Router","addPacket","addPacket","addPacket","addPacket","addPacket","forwardPacket","addPacket","getCount"]\n[[3],[1,4,90],[2,5,90],[1,4,90],[3,5,95],[4,5,105],[],[5,2,110],[5,100,110]]\n
+// @lcpr case=end
+
+// @lcpr case=start
+// ["Router","addPacket","forwardPacket","forwardPacket"]\n[[2],[7,4,90],[],[]]\n
 // @lcpr case=end
 
  */
