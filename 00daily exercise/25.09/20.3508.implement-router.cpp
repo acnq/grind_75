@@ -25,59 +25,80 @@ using namespace std;
 #include <vector>
 
 #include <string>
+#include <set>
 // @lcpr-template-end
 // @lc code=start
 class Router {
     // I. 直接模拟：
-    // 用二维数组grid来保存每个单元格的值，行数为row, 列数为26
-    // 初始化：Spreadsheet(int rows), 列数设定为26，元素全部设定为0
-    // 添加：void setCell(String cell, int value) 按照规则从字符串cell中解析出单元格对应的行列
-    // 编辑：void resetCell(String cell), 仿上一条将其重置为0即可
-    // 计算：int getValue(String formula): 因为这里只支持=X+Y的格式，所以
-    //      依照此格式直接解析X/Y即可，如果X/Y首字母为字母则为单元格，从grid读取；否则解析为整数
-    //      分别解析之后返回二者的和即可
-    // 执行：从heap弹出任务，检查是否在taskInfo中存在且priority匹配，
-    //      若匹配则删除并返回userId, 否则继续弹出直到找到或者堆空
-    // C: 初始表格的列数，本题为26
-    // tc: 初始化：O(C * rows); else: O(1);
-    // sc: O(C * rows) 
-
-    // II. 哈希表
-    // 直接用哈希表将单元格字符串映射到单元格的值
+    // addPacket: 添加数据包：如果已经存在返回false, 否则返回true
+    //  如果路由器内存已满，则将内存中最旧的（时间戳最小的）移除，然后再添加
+    // forwardPacket: 先进先出的顺序转发下一个个数据包，返回其src, dest和timestamp
+    // getCount: 返回当前路由器中目标为dest, 且时间戳再startTime-endTime之间的数据包
+    //  包括两端。
+    // 定义Router类中的成员：
+    // memLimit: int, 内存大小
+    // length: int 当前路由器内存中数据包的数量
+    // isExist； int三元组，表示当前路由器内存中是否存在某个数据包
+    // sameDestQue: 无序哈希表，以dest为key，以目标为dest的每个数据包
+    // 的时间戳组成的双端队列为值，表示当前路由器内存中每个目标地址对应的数据包的时间戳
+    // que: 三元组双端队列，表示当前路由器内存中的数据包
+    // addPacket: 移除由forwardPacket完成；将需要添加的数据包存入que中，对应目标地址dest
+    //  的时间戳timestamp存入sameDestQue中，然后再isExist中登记，最后返回true即可
+    // forwardPacket: 判断que是否为空，是则返回空；否则取出que中首个元素，弹出此元素
+    //  然后从isExist中移除，从sameDestQue中移除时间戳，最后返回其src, dest, timestamp
+    // getCount: 从sameDestQue的目标地址为dest的队列中，使用二分查找lower/upper_bound
+    //  找到startTime, endTime之间的元素个数即可
+    // tc: init: O(1), addPacket,/forwardPacket/getCount: O(logn)
+    // sc: init: O(n), else: O(1)
 private:
-    // I.
-    // vector<vector<int>> grid;
-
-    // pair<int, int> getPos(const string& cell) {
-    //     int x = stoi(cell.substr(1));
-    //     int y = cell[0] - 'A';
-    //     return {x, y};
-    // }
-
-    // int getCellVal(string& cell) {
-    //     if (isalpha(cell[0])) {
-    //         auto [x, y] = getPos(cell);
-    //         return grid[x][y];
-    //     } else {
-    //         return stoi(cell);
-    //     }
-    // }
-    
-    // II.
-    unordered_map<string, int> cellValues;
 
 public:
-    Router(int memoryLimit) {
+    //
+    int memLimit = 0;
+    int length = 0;
+    set<tuple<int, int, int>> isExist;
+    unordered_map<int, deque<int>> sameDestQue;
+    deque<tuple<int, int, int>> que;
 
+    Router(int memoryLimit) {
+        //
+        memLimit = memoryLimit;
     }
     
     bool addPacket(int source, int destination, int timestamp) {
+        //
+        tuple<int, int, int> packet = make_tuple(source, destination, timestamp);
+        if (isExist.count(packet)) {
+            return false;
+        }
+        if (length == memLimit) {
+            forwardPacket();
+        }
+        length++;
+        que.push_back(packet);
+        sameDestQue[destination].push_back(timestamp);
+        isExist.insert(packet);
+        return true;
     }
     
     vector<int> forwardPacket() {
+        //
+        vector<int> data;
+        if (!que.empty()) {
+            tuple<int, int, int> packet = que.front();
+            que.pop_front();
+            data = vector<int>{get<0>(packet), get<1>(packet), get<2>(packet)};
+            isExist.erase(packet);
+            sameDestQue[data[1]].pop_front();
+            length--;
+        }
+        return data;
     }
     
     int getCount(int destination, int startTime, int endTime) {
+        auto pos1 = lower_bound(sameDestQue[destination].begin(), sameDestQue[destination].end(), startTime);
+        auto pos2 = upper_bound(sameDestQue[destination].begin(), sameDestQue[destination].end(), endTime);
+        return pos2 - pos1;
     }
     
 };
