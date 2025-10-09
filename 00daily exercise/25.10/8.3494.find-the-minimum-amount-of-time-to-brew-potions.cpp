@@ -52,10 +52,13 @@ public:
         for (int j = 0; j < m; j++) {
             ll cur_time = 0;
             for (int i = 0; i < n; i++) {
+                // 先确定每个巫师的最晚结束时间
                 cur_time = max(cur_time, times[i]) + skill[i] * mana[j];
             }
+            // 依次确定此药的最晚结束时间
             times[n - 1] = cur_time;
             for (int i = n - 2; i >= 0; i--) {
+                // 据此倒推第一个巫师的开始时间
                 times[i] = times[i + 1] - skill[i + 1] * mana[j];
             }
         }
