@@ -35,6 +35,7 @@ using namespace std;
 class Solution {
     // O. 我的：12min
     // I. 答案：不需要中间的容器，用last记录上一个1的位置即可
+    // tc: O(logn), sc: O(1)
 public:
     int binaryGap(int n) {
         // vector<int> res;
