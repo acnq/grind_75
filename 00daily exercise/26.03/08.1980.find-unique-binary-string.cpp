@@ -32,6 +32,7 @@ class Solution {
     // 长为n的二进制字符串看做[0, 2^n - 1]区间内的整数的二进制表示
     // 注意到nums中总共是n个元素，而[0, n]中总共n+1个，所以在这个闭区间中一定有个不在nums中
     // 我们预处理哈希集合，遍历[0, n]中的整数，找到第一个不在nums中的即可
+    // tc: O(n^2), sc: O(n)
 public:
     string findDifferentBinaryString(vector<string>& nums) {
         int n = nums.size();

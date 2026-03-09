@@ -49,6 +49,7 @@ class Solution {
     //             { dp0[i][j - 1] + dp1[i][j - 1],                         i \in [0, limit], j > 0
     //             { 0,                                                     else
     // ans = dp0[zero][one] + dp1[zero][one]
+    // tc = sc = O(zero * one) 
 public:
     int numberOfStableArrays(int zero, int one, int limit) {
         vector<vector<vector<long long>>> dp(zero + 1, vector<vector<long long>>(one + 1, vector<long long>(2)));
