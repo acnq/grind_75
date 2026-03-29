@@ -44,8 +44,9 @@ public:
         int counts[256] = {0};
 
         for (int i = 0; i < s1.length(); i++) {
-            int offset = (i & 1) << 7;
-            counts[offset + s1[i]]++;
+            int offset = (i & 1) << 7; // 区分奇偶, 
+            // counts[0:127]偶数统计,counts[128:255]奇数统计
+            counts[offset + s1[i]]++; // char 1B在128内
             counts[offset + s2[i]]--;
         }
 
