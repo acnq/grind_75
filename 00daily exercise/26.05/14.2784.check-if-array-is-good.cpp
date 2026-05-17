@@ -35,30 +35,58 @@ using namespace std;
 class Solution {
 public:
     bool isGood(vector<int>& nums) {
-        int max_elem = 0;
-        for (int num: nums) {
-            max_elem = max(num, max_elem);
-        }
-        if (nums.size() != max_elem + 1) {
-            return false;
-        } else {
-            unordered_map<int, int> cnt;
-            for (int num: nums) {
-                if (cnt.count(num) == 0) {
-                    cnt[num] = 1;
-                } else {
-                    if (num != max_elem) {
-                        return false;
-                    } else if (cnt[num] != 1) {
-                        return false;
-                    }
-                }
+        // O. 我的
+        // int max_elem = 0;
+        // for (int num: nums) {
+        //     max_elem = max(num, max_elem);
+        // }
+        // if (nums.size() != max_elem + 1) {
+        //     return false;
+        // } else {
+        //     unordered_map<int, int> cnt;
+        //     for (int num: nums) {
+        //         if (cnt.count(num) == 0) {
+        //             cnt[num] = 1;
+        //         } else {
+        //             if (num != max_elem) {
+        //                 return false;
+        //             } else if (cnt[num] != 1) {
+        //                 return false;
+        //             }
+        //         }
+        //     }
+        //     for (int i = 0; i < max_elem; i++) {
+        //         if (cnt.count(i) == 0) {
+        //             return false;
+        //         }
+        //     }
+        // }
+        // return true;
+
+        // I.排序： tc: O(nlogn), sc: O(logn) 
+        // sort(nums.begin(), nums.end());
+        // int n = nums.size() - 1;
+        // for (int i = 0; i < n; i++) {
+        //     if (nums[i] != i + 1) {
+        //         return false;
+        //     }
+        // }
+        // return nums[n] == n;
+
+        // II. 统计频数
+        int n = nums.size();
+        vector<int> count(n, 0);
+        for (int a: nums) {
+            if (a >= n) {
+                return false;
             }
-            for (int i = 0; i < max_elem; i++) {
-                if (cnt.count(i) == 0) {
-                    return false;
-                }
+            if (a < n - 1 && count[a] > 0) {
+                return false;
             }
+            if (a == n - 1 && count[a] > 1) {
+                return false;
+            }
+            count[a]++;
         }
         return true;
     }
