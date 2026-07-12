@@ -78,7 +78,8 @@ class Solution {
     // numV[find(i)]++;
     // 遍历边，找到edge所属的集合x, numE[find(edge[0])]++;
     // 对每个集合判断numE和numV是否满足等式
-    // tc = sc = 
+    // tc: O((V + E) * \alpha(V)), sc: O(V)
+    // \alpha(x): x的反阿克曼数
 public:
 
     int countCompleteComponents(int n, vector<vector<int>>& edges) {
